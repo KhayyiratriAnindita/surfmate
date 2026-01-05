@@ -1,0 +1,242 @@
+/* Admin dashboard styles and responsiveness */
+
+.auth-box.admin-wide {
+  max-width: 1100px;
+  width: 100%;
+  padding: 24px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-section h3 {
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.admin-table thead th {
+  background: #f3f7fb;
+  color: #003366;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e6eef7;
+  font-size: 0.95rem;
+}
+
+.admin-table tbody td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e6eef7;
+  color: #1a1a1a;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.admin-table .comment-cell {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.admin-table tbody tr:hover {
+  background: #f9fbfe;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.status-pending { background: #fff3cd; color: #7a5e00; }
+.status-approved { background: #d1e7dd; color: #0f5132; }
+.status-rejected { background: #f8d7da; color: #842029; }
+.status-completed { background: #cfe2ff; color: #084298; }
+
+/* Buttons inside table */
+.admin-table .role-btn {
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1024px) {
+  .auth-box.admin-wide { max-width: 900px; }
+  .admin-table thead th, .admin-table tbody td { padding: 8px 10px; }
+}
+
+@media (max-width: 768px) {
+  .auth-box.admin-wide { max-width: 680px; padding: 20px; }
+  .auth-header h2 { font-size: 1.6rem; }
+  .auth-logo span { font-size: 1.6rem; }
+  .admin-table thead th { font-size: 0.9rem; }
+  .admin-table tbody td { font-size: 0.9rem; }
+}
+
+@media (max-width: 600px) {
+  .auth-box.admin-wide { padding: 18px; border-radius: 16px; }
+  .back-link a { font-size: 0.9rem; }
+  .hint { font-size: 0.9rem; }
+  .admin-tabs { gap: 8px; }
+  .admin-tabs .role-btn { flex: 1 1 auto; }
+  .table-wrapper { width: 100%; overflow-x: auto; }
+  .admin-table { min-width: 640px; }
+}
+
+@media (max-width: 420px) {
+  .auth-logo i { font-size: 2rem; }
+  .auth-logo span { font-size: 1.4rem; }
+  .auth-header p { font-size: 0.9rem; }
+}
+
+/* Full-page admin layout */
+.admin-page {
+  position: relative;
+  min-height: 100vh;
+  background: #f2f6fa;
+}
+
+.admin-page .auth-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+
+.admin-page .auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.admin-wrapper {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 20px;
+}
+
+.admin-topbar {
+  display: flex;
+  justify-content: flex-end; /* no back link; keep actions on right */
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.topbar-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-note {
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-actions .role-btn {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+/* Non-primary action buttons in the admin topbar (subtle white background, dark-blue text) */
+.topbar-actions .role-btn:not(.primary) {
+  color: #003366; /* dark navy to match other headings */
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.topbar-actions .role-btn:not(.primary):hover {
+  background: rgba(255,255,255,0.12);
+  color: #002244;
+  border-color: rgba(255,255,255,0.14);
+}
+
+/* White logout button for admin */
+.admin-page .topbar-actions .role-btn.primary {
+  background: #ffffff;
+  color: #0066cc;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.admin-page .topbar-actions .role-btn.primary:hover {
+  background: #f0f8ff;
+  color: #003366;
+  border-color: #f0f8ff;
+}
+
+.admin-panel {
+  background: transparent; /* no card */
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Override auth logo colors for admin page */
+.admin-page .auth-logo i { color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.admin-page .auth-logo span { color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+
+.admin-header { margin-bottom: 12px; }
+.admin-header h2 { 
+  color: #ffffff; 
+  margin: 6px 0; 
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.admin-header p { 
+  color: #ffffff; 
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.admin-tabs { margin: 12px 0 16px; }
+
+.admin-section { margin-top: 10px; }
+
+.table-wrapper {
+  background: #fff;
+  border: 1px solid #e6eef7;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* Hint text styling for admin */
+.admin-page .hint {
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  font-weight: 500;
+}

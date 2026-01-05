@@ -1,0 +1,49 @@
+services:
+  # Service Aplikasi Web Anda
+  web:
+    build: .
+    ports:
+      - "8080:80"  # Buka di browser via localhost:8080
+    env_file:
+      - .env
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+    volumes:
+      - .:/var/www/html # agar edit kodingan langsung berubah tanpa rebuild
+      # Simpan session PHP agar login/session tidak hilang saat container restart
+      - web_sessions:/var/lib/php/sessions
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Service Database MySQL
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3307:3306"
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_surfmate:/var/lib/mysql
+      # Seed schema + sample data on first initialization
+      # (runs only when /var/lib/mysql is empty)
+      - ./db_surfmate.sql:/docker-entrypoint-initdb.d/001_db_surfmate.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+volumes:
+  db_surfmate:
+  web_sessions:

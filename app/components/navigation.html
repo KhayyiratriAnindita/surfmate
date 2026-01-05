@@ -1,0 +1,58 @@
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <i class="fas fa-water"></i>
+            <span>SurfMate</span>
+        </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Beranda</a></li>
+                <li><a href="#surfing" class="nav-link">Aktivitas Surfing</a></li>
+                <li><a href="#facilities" class="nav-link">Fasilitas</a></li>
+                <li><a href="#gallery" class="nav-link">Spot Foto</a></li>
+                <li><a href="#safety" class="nav-link">Keselamatan</a></li>
+                <li><a href="#message" class="nav-link">Pesan</a></li>
+                <li><a href="#feedback" class="nav-link">Ulasan</a></li>
+            </ul>
+        <div class="profile-container">
+            <div class="profile-toggle" id="profileToggle">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="profile-greeting" id="profileGreeting">SELAMAT DATANG</span>
+                <i class="fas fa-chevron-down profile-arrow"></i>
+            </div>
+            <div class="profile-dropdown" id="profileDropdown">
+                <a href="/app/components/chooseRole.html" class="profile-dropdown-item">
+                    <i class="fas fa-user-tag"></i>
+                    <span>Pilih Role</span>
+                </a>
+            </div>
+            <div id="loggedInProfile" style="display:none; position: relative;">
+                <div class="profile-toggle" id="loggedInProfileToggle" style="cursor:pointer;display:flex;align-items:center;gap:6px;">
+                    <span class="surfer-name" id="surferNameDisplay">Surfer</span>
+                    <i class="fas fa-chevron-down profile-arrow"></i>
+                </div>
+                <div class="profile-dropdown" id="loggedInProfileDropdown" style="right:0;left:auto;">
+                    <a href="/app/pages/myReservations.php" class="profile-dropdown-item" id="myReservationsDropdownLink">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Reservasi Saya</span>
+                    </a>
+                    <a href="#" class="profile-dropdown-item" id="deleteAccountBtn">
+                        <i class="fas fa-user-times"></i>
+                        <span>Hapus Akun</span>
+                    </a>
+                    <a href="#" class="profile-dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ulasan Pengunjung - Pantai Wediombo</title>
+  <link rel="stylesheet" href="../style/styles.css">
+</head>
+<body>
+
+  <main class="container" style="padding:80px 0;">
+    <h1 style="text-align:center; color:var(--primary-blue); margin-bottom:2rem;">Ulasan Pengunjung</h1>
+
+    <section id="reviews" class="reviews-list">
+      <p id="reviews-empty">Memuat ulasan...</p>
+    </section>
+
+    <script>
+      function escapeHtml(s){
+         return String(s).replace(/[&<>"'\/]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;",'/':'&#x2F;'}[c]; });
+      }
+   
+      async function loadReviews(){
+        const fallbackMessage = 'Gagal memuat ulasan. Pastikan membuka lewat localhost.';
+        const container = document.getElementById('reviews');
+
+        // kandidat URL untuk dicoba
+        const candidates = [
+          '../backend/getFeedback.php',
+          './backend/getFeedback.php',
+          '/app/backend/getFeedback.php',
+          '/backend/getFeedback.php',
+          '/surfmate/app/backend/getFeedback.php',
+          '/surfmate/backend/getFeedback.php'
+        ];
+
+        const attempts = [];
+
+        try{
+          let res = null;
+          let usedUrl = null;
+          // coba masing2 kandidat 
+          for (const p of candidates) {
+            const url = new URL(p, window.location.href).toString();
+            try {
+              res = await fetch(url, { cache: 'no-store', credentials: 'same-origin' });
+              attempts.push({url, ok: res.ok, status: res.status, statusText: res.statusText});
+            } catch (e) {
+              attempts.push({url, ok: false, error: String(e)});
+              res = null;
+            }
+            if (res && res.ok) { usedUrl = url; break; }
+          }
+
+          if (usedUrl) {
+            // attempt to parse JSON, but provide diagnostics if parsing fails
+            const txt = await res.text();
+            let data = null;
+            try { data = JSON.parse(txt); } catch (e) {
+              container.innerHTML = `<p>Server merespons tetapi format tidak valid (bukan JSON). Response: <pre style="white-space:pre-wrap;max-height:200px;overflow:auto;">${escapeHtml(txt)}</pre></p>`;
+              console.error('Invalid JSON from', usedUrl, txt);
+              return;
+            }
+
+            // peroleh URL yg dihapus dari usedUrl
+            const deleteUrl = new URL(usedUrl);
+            deleteUrl.pathname = deleteUrl.pathname.replace(/getFeedback\.php$/, 'deleteFeedback.php');
+
+            const out = data.length ? data.map(r => {
+              const delBtn = r.can_delete ? `<button class="btn-primary btn-delete" data-id="${escapeHtml(r.id_ulasan)}">Hapus</button>` : '';
+              const author = r.surfer_name ?? (`#${r.id_surfer}`) ?? (`#${r.id_ulasan}`);
+              return `\n      <article class="review-card" data-id="${escapeHtml(r.id_ulasan)}">\n        <h4>${escapeHtml(author)}</h4>\n        <time>${new Date(r.tgl_ulasan).toLocaleString()}</time>\n        <p>${escapeHtml(r.comment ?? r.isi_ulasan ?? '')}</p>\n        ${delBtn}\n      </article>`;
+            }).join('') : '<p>Tidak ada ulasan.</p>';
+            container.innerHTML = out;
+
+            // tampilkan tombol hapus untuk owner ulasan/admin
+            container.addEventListener('click', async function(e){
+              const btn = e.target.closest('.btn-delete');
+              if (!btn) return;
+              const id = btn.getAttribute('data-id');
+              if (!confirm('Hapus ulasan ini?')) return;
+              try {
+                const resp = await fetch(deleteUrl.toString(), {
+                  method: 'POST',
+                  credentials: 'same-origin',
+                  headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                  body: new URLSearchParams({id_ulasan: id})
+                });
+                const txt2 = await resp.text();
+                let data2 = null;
+                try { data2 = JSON.parse(txt2); } catch(e){ data2 = null; }
+                if (resp.ok && data2 && data2.success) {
+                  const art = container.querySelector(`article.review-card[data-id="${id}"]`);
+                  if (art) art.remove();
+                } else {
+                  alert('Gagal menghapus: ' + (data2 && data2.error ? data2.error : txt2));
+                }
+              } catch(err) {
+                console.error('Delete error', err);
+                alert('Terjadi kesalahan saat menghapus ulasan');
+              }
+            });
+            return;
+          }
+
+          // fkembali ke static JSON file 
+          try{
+            const res2 = await fetch('../api/feedback.json', { cache: 'no-store' });
+            attempts.push({url: new URL('../api/feedback.json', window.location.href).toString(), ok: res2.ok, status: res2.status});
+            if (res2.ok) {
+              const data = await res2.json();
+              const out = data.length ? data.map(r => `\n      <article class="review-card">\n        <h4>Ulasan #${escapeHtml(r.id_ulasan)}</h4>\n        <time>${new Date(r.tgl_ulasan).toLocaleString()}</time>\n        <p>${escapeHtml(r.isi_ulasan ?? r.comment ?? '')}</p>\n      </article>`).join('') : '<p>Tidak ada ulasan.</p>';
+              container.innerHTML = out;
+              return;
+            }
+          } catch(e2){
+            attempts.push({url: new URL('../api/feedback.json', window.location.href).toString(), ok: false, error: String(e2)});
+          }
+
+          // pembuatan daftar pesan
+          let diag = `<p>${fallbackMessage}</p><ul>`;
+          for (const a of attempts) {
+            if (a.ok) diag += `<li>${escapeHtml(a.url)} — OK (${escapeHtml(String(a.status))} ${escapeHtml(a.statusText||'')})</li>`;
+            else if (a.error) diag += `<li>${escapeHtml(a.url)} — Error: ${escapeHtml(a.error)}</li>`;
+            else diag += `<li>${escapeHtml(a.url)} — Response: ${escapeHtml(String(a.status||'no response'))}</li>`;
+          }
+          diag += '</ul>';
+          container.innerHTML = diag;
+        }catch(e){
+          container.innerHTML = `<p>${fallbackMessage}</p>`;
+          console.error('loadReviews error', e);
+        }
+      }
+   
+      loadReviews();
+    </script><br><br>
+
+    <div class="back-button">
+      <a href="/index.html" class="btn-primary btn-back" aria-label="Kembali ke Beranda">Kembali</a>
+    </div>
+  </main>
+</body>
+</html>

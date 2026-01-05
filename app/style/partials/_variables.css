@@ -1,0 +1,19 @@
+/* ===================================
+   VARIABLES & COLOR PALETTE
+   CSS Custom Properties untuk reusability
+   =================================== */
+
+:root {
+    --primary-blue: #0077be;
+    --light-blue: #00a8cc;
+    --dark-blue: #005577;
+    --sand: #f4e4c1;
+    --dark-sand: #d4a574;
+    --white: #ffffff;
+    --black: #2c3e50;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --gradient-ocean: linear-gradient(135deg, #0077be 0%, #00a8cc 100%);
+    --gradient-sand: linear-gradient(135deg, #f4e4c1 0%, #d4a574 100%);
+}

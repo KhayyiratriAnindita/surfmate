@@ -1,0 +1,31 @@
+<section id="feedback" class="feedback">
+    <div class="container">
+        <div class="feedback-content">
+      <h2>Ulasan</h2>
+            
+      <!-- ulasan content -->
+      <div class="feedback-card">
+                <h3>Certikan Pengalaman Anda di Pantai Wediombo</h3>
+                <div class="feedback-actions">
+                  <textarea rows="5" cols="50" placeholder="Tulis ulasan anda disini..." class="feedback-textarea"></textarea>
+                  <button type="submit" class="btn-primary">Kirim ulasan</button>
+                  <a href="components/fbuser.html" class="btn-primary btn-view-reviews">Lihat Ulasan</a>
+                </div>
+      </div>
+        </div>
+    </div>
+</section>
+
+<script>
+  (function(){
+    const btn = document.querySelector('.btn-view-reviews');
+    if (!btn) return;
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      const candidate = new URL('components/fbuser.html', window.location.href).toString();
+      window.location.href = candidate;
+    });
+  })();
+</script>
+
+

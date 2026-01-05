@@ -1,0 +1,75 @@
+<!-- Real-Time Wave Monitoring -->
+<section class="wave-monitoring">
+    <div class="container">
+        <div class="wave-header">
+            <div>
+                <h2>Prakiraan Ombak</h2>
+                <p class="wave-location" id="wave-location">Wediombo, Yogyakarta</p>
+            </div>
+            <div class="wave-source">
+                <p id="wave-timestamp"></p>
+                <p class="source-credit">Sumber: <a href="https://www.bmkg.go.id" target="_blank">BMKG</a></p>
+            </div>
+        </div>
+
+        <!-- loading dan error states -->
+        <div id="wave-loading" class="wave-loading">
+            <i class="fas fa-spinner fa-spin"></i> Memuat data dari BMKG...
+        </div>
+        <div id="wave-error" class="wave-error" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i> <span id="error-message"></span>
+        </div>
+
+        <!-- wave cards -->
+        <div id="wave-cards-container" class="wave-cards" style="display: none;">
+            <div class="wave-card">
+                <div class="card-icon">
+                    <i class="fas fa-water"></i>
+                </div>
+                <h3>Ketinggian Ombak</h3>
+                <div class="wave-value" id="wave-height">-</div>
+                <p class="wave-desc" id="wave-height-advice">-</p>
+            </div>
+            <div class="wave-card">
+                <div class="card-icon">
+                    <i class="fas fa-wind"></i>
+                </div>
+                <h3>Kecepatan Angin</h3>
+                <div class="wave-value" id="wind-speed">-</div>
+                <p class="wave-desc">-</p>
+            </div>
+            <div class="wave-card">
+                <div class="card-icon">
+                    <i class="fas fa-thermometer-half"></i>
+                </div>
+                <h3>Suhu</h3>
+                <div class="wave-value" id="water-temp">-</div>
+                <p class="wave-desc" id="water-temp-desc">-</p>
+            </div>
+            <div class="wave-card">
+                <div class="card-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3>Cuaca</h3>
+                <div class="wave-desc" id="weather-desc" style="font-size: 1rem; margin-top: 1rem;">-</div>
+                <p class="wave-desc" id="humidity-info">-</p>
+            </div>
+        </div>
+
+        <!-- indicator ombak -->
+        <div id="wave-status" class="wave-status-indicator" style="display: none;">
+            <div class="status-content">
+                <i class="fas fa-check-circle"></i>
+                <span id="status-text">Kondisi Ombak: -</span>
+            </div>
+        </div>
+
+        <!-- kontainer chart -->
+        <div id="wave-chart-section" class="wave-chart-container" style="display: none;">
+            <div class="chart-header">
+                <h3>Grafik Prakiraan Ombak & Angin (24 Jam ke Depan)</h3>
+            </div>
+            <canvas id="waveChart"></canvas>
+        </div>
+    </div>
+</section>

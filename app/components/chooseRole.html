@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Role - SurfMate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../style/styles.css">
+</head>
+<body>
+    <div class="auth-background" style="background-image: url('/app/assets/tengah laut.jpeg');"></div>
+    <div class="auth-overlay" style="background: rgba(0, 51, 102, 0.7); backdrop-filter: blur(3px);"></div>
+
+    <div class="auth-container">
+        <div class="role-card">
+            <div class="role-header">
+                <div class="auth-logo">
+                    <i class="fas fa-water"></i>
+                    <span>SurfMate</span>
+                </div>
+                <h2>Pilih Role Anda</h2>
+                <p>Tentukan ingin masuk atau daftar sebagai Surfer atau Admin</p>
+            </div>
+
+            <div class="role-grid">
+                <div class="role-card-item">
+                    <h3>Surfer</h3>
+                    <p>Masuk untuk memesan aktivitas, memantau kondisi ombak, dan mengelola profil surfing Anda.</p>
+                    <div class="role-actions">
+                        <a class="role-btn primary" href="loginSurfer.html">Log In Surfer</a>
+                        <a class="role-btn secondary" href="signUpSurfer.html">Sign Up Surfer</a>
+                    </div>
+                </div>
+
+                <div class="role-card-item">
+                    <h3>Admin</h3>
+                    <p>Kelola konten, aktivitas, dan feedback pengguna.</p>
+                    <div class="role-actions">
+                        <a class="role-btn primary" href="loginAdmin.html" data-admin-action="login">Log In Admin</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="back-home-link">
+                <a href="/index.html"><i class="fas fa-arrow-left"></i> Kembali ke beranda</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/pages/chooseRole.js"></script>
+</body>
+</html>

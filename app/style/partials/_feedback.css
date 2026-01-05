@@ -1,0 +1,269 @@
+/* Fix button width in feedback and facilities */
+.feedback-actions .btn-primary,
+.facility-actions .btn-primary {
+  min-width: 160px;
+  width: auto;
+  max-width: 100%;
+  flex: 0 0 auto;
+}
+/* ===================================
+   MESSAGE SECTION
+   Environmental message & pledge card
+   =================================== */
+
+.feedback {
+    padding: 80px 0;
+    background: var(--gradient-sand);
+}
+
+.feedback h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-blue);
+}
+
+/* Tab Navigation */
+.feedback-tabs {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.feedback-tab-btn {
+  background: transparent;
+  border: 2px solid var(--primary-blue);
+  color: var(--primary-blue);
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feedback-tab-btn:hover {
+  background: var(--primary-blue);
+  color: white;
+}
+
+.feedback-tab-btn.active {
+  background: var(--primary-blue);
+  color: white;
+}
+
+.feedback-tab-content {
+  display: none;
+}
+
+.feedback-tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.no-data a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.no-data a:hover {
+  text-decoration: underline;
+}
+
+.feedback-card {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-icon-img { 
+    width: 150px; 
+    height: auto; 
+    justify-content: center;
+}
+
+.feedback-card h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-blue);
+}
+
+.feedback-card p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+.feedback-card blockquote {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--primary-blue);
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--primary-blue);
+    padding-left: 1rem;
+}
+
+.feedback-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.feedback-actions textarea {
+  flex: 1 1 100%;       /* ambil seluruh lebar yang tersedia */
+  padding: 1rem 1.25rem;
+  border-radius: 999px; /* pill-shaped textarea */
+  border: 1px solid #ddd;
+  font-family: inherit;
+}
+
+/* Make feedback action buttons pill-shaped */
+.feedback-actions .btn-primary {
+  border-radius: 999px;
+  padding: 12px 26px;
+}
+
+
+.reviews-list {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.review-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  color: #333;
+}
+
+.review-card h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--primary-blue);
+}
+
+.review-card time {
+  display:block;
+  font-size: .9rem;
+  color: #777;
+  margin-bottom: .5rem;
+}
+
+.review-card p {
+  margin: 0;
+  color: #444;
+}
+
+/* Floating back button (bottom-right) */
+.btn-back {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  padding: 12px 18px;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 119, 190, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-back:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 119, 190, 0.3);
+}
+
+@media (max-width: 480px) {
+  .btn-back {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 10px 14px;
+  }
+}
+
+/* Button styles moved from _buttons.css */
+.btn-primary {
+    background: var(--gradient-ocean);
+    color: var(--white);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;        /* ensure anchors behave like buttons */
+    text-decoration: none;        /* remove underline on links */
+    font-size: 1rem;              /* consistent font size */
+    line-height: 1;               /* avoid extra line-height differences */
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 119, 190, 0.3);
+}
+
+/* Make sure links with btn-primary don't show underline on focus */
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(43, 121, 210, 0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+/* Strong enforcement for pill shapes across browsers (including Edge) */
+/* Apply to facility, feedback and modal buttons and their active/focus states */
+.facility-card .btn-primary,
+.feedback-actions .btn-primary,
+.booking-modal .btn-primary,
+.btn-primary {
+  border-radius: 999px !important;
+}
+.facility-card .btn-primary:active,
+.facility-card .btn-primary:focus,
+.feedback-actions .btn-primary:active,
+.feedback-actions .btn-primary:focus,
+.booking-modal .btn-primary:active,
+.booking-modal .btn-primary:focus,
+.btn-primary:active,
+.btn-primary:focus {
+  border-radius: 999px !important;
+}
+
+/* Ensure date inputs inside modal are visible and pill-shaped in Edge/Chromium */
+.booking-modal .form-group input[type="date"],
+.booking-modal .form-group input[type="text"],
+.booking-modal .form-group input[type="tel"],
+.booking-modal .form-group select {
+  border-radius: 999px !important;
+  color: var(--black) !important;
+  background: #fff !important;
+  -webkit-text-fill-color: var(--black) !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}

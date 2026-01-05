@@ -1,0 +1,120 @@
+/* ===================================
+   RESPONSIVE DESIGN
+   Media queries untuk mobile & tablet
+   =================================== */
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: var(--white);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .profile-toggle {
+        padding: 6px 12px;
+    }
+    
+    .profile-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .profile-greeting {
+        font-size: 0.75rem;
+    }
+    
+    .profile-dropdown {
+        right: -20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .conservation-content {
+        grid-template-columns: 1fr;
+    }
+
+    .campaign-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .message-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wave-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .surf-levels {
+        grid-template-columns: 1fr;
+    }
+
+    .facility-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .safety-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .wave-monitoring h2,
+    .surfing h2,
+    .facilities h2,
+    .gallery h2,
+    .safety h2,
+    .conservation h2,
+    .message h2 {
+        font-size: 2rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}

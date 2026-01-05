@@ -1,0 +1,31 @@
+
+/* 1. Variables & Color Palette */
+@import 'partials/_variables.css';
+
+/* 2. Reset & Base Styles */
+@import 'partials/_reset.css';
+
+/* 3. Layout & Components */
+@import 'partials/_navigation.css';
+@import 'partials/_hero.css';
+@import 'partials/_wave-monitoring.css';
+@import 'partials/_surfing.css';
+@import 'partials/_facilities.css';
+@import 'partials/_gallery.css';
+@import 'partials/_safety.css';
+@import 'partials/_message.css';
+@import 'partials/_feedback.css';
+@import 'partials/_footer.css';
+
+/* 4. Utility Styles */
+@import 'partials/_animations.css';
+@import url('partials/_role-choice.css');
+
+/* 4.1 Auth Pages */
+@import 'partials/_auth.css';
+
+/* 5. Responsive Design */
+@import 'partials/_responsive.css';
+
+/* 6. Admin Dashboard */
+@import 'partials/_admin.css';

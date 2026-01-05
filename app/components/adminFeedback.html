@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Ulasan Pengunjung</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../style/styles.css">
+</head>
+<body class="admin-page">
+  <div class="auth-background" style="background-image: url('/app/assets/laguna2.jpeg');"></div>
+  <div class="auth-overlay" style="background: rgba(2, 28, 174, 0.245);"></div>
+
+  <div class="admin-wrapper">
+    <div class="admin-topbar">
+      <div class="topbar-actions">
+        <a href="adminDashboard.html" class="role-btn"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</a>
+        <button class="role-btn primary" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+
+    <section class="admin-panel">
+      <div class="admin-header">
+        <div class="auth-logo">
+          <i class="fas fa-water"></i>
+          <span>SurfMate Admin</span>
+        </div>
+        <h2>Ulasan Pengunjung</h2>
+        <p>Kelola ulasan yang dikirim oleh surfer.</p>
+      </div>
+
+      <div class="admin-section">
+        <div class="table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Surfer</th>
+                <th>Tanggal</th>
+                <th>Ulasan</th>
+              </tr>
+            </thead>
+            <tbody id="feedbackTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="hint">
+        <i class="fas fa-info-circle"></i> Hapus ulasan hanya oleh pemilik akun masing-masing.
+      </div>
+    </section>
+  </div>
+
+  <script>
+  (function(){
+    const API_PREFIXS = [
+      '../backend',
+      './backend',
+      '/app/backend',
+      '/backend',
+      '/surfmate/app/backend',
+      '/surfmate/backend'
+    ];
+
+    function probeUrl(pathCandidates) {
+      return pathCandidates.map(p => new URL(p, window.location.href).toString());
+    }
+
+    const feedbackBody = document.getElementById('feedbackTableBody');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (logoutBtn) logoutBtn.addEventListener('click', () => { localStorage.removeItem('authRole'); window.location.href='/app/components/chooseRole.html'; });
+
+    async function findAndFetchFeedback() {
+      const candidates = probeUrl(API_PREFIXS.map(p => p + '/getFeedback.php'));
+      for (const url of candidates) {
+        try {
+          const r = await fetch(url, { credentials: 'same-origin', cache: 'no-store' });
+          if (r && (r.status === 200 || r.status === 401 || r.status === 403)) {
+            const txt = await r.text();
+            try { const j = JSON.parse(txt); return { url, json: j }; } catch(e){ console.warn('Invalid JSON from', url); continue; }
+          }
+        } catch(e) {}
+      }
+      throw new Error('No feedback endpoint found');
+    }
+
+    async function loadFeedback(){
+      feedbackBody.innerHTML = '<tr><td colspan="5">Memuat...</td></tr>';
+      try {
+        const result = await findAndFetchFeedback();
+        const rows = result.json || [];
+        if (!rows.length) {
+          feedbackBody.innerHTML = '<tr><td colspan="4">Tidak ada ulasan.</td></tr>';
+          return;
+        }
+        feedbackBody.innerHTML = '';
+        rows.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${r.id_ulasan}</td>
+            <td>${(r.surfer_name || ('#'+r.id_surfer))}</td>
+            <td>${new Date(r.tgl_ulasan).toLocaleString()}</td>
+            <td class="comment-cell">${(r.comment || r.isi_ulasan || '')}</td>
+          `;
+          feedbackBody.appendChild(tr);
+        });
+      } catch (e) {
+        console.error(e);
+        feedbackBody.innerHTML = '<tr><td colspan="4">Gagal memuat ulasan.</td></tr>';
+      }
+    }
+    
+    loadFeedback();
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Hindari 404 favicon.ico di browser; arahkan ke favicon SVG
+RewriteRule ^favicon\.ico$ /app/assets/favicon.svg [L]
+
+# Perbaiki path relatif saat halaman diakses dari /components atau /pages
+# Contoh: /components/backend/... harusnya ke /app/backend/... (bukan /app/components/backend/...)
+RewriteRule ^(components|pages)/(backend|style|assets)/(.*)$ /app/$2/$3 [L]
+
+# Mapping path publik ke /app/* (runtime Apache)
+RewriteRule ^(backend|api|style|assets|components|pages)/(.*)$ /app/$1/$2 [L]
